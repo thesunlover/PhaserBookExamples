@@ -1,0 +1,26 @@
+{
+  "name": "phaser-book-examples",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/thesunlover/PhaserBookExamples.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/thesunlover/PhaserBookExamples/issues"
+  },
+  "homepage": "https://github.com/thesunlover/PhaserBookExamples#readme",
+  "dependencies": {
+    "grunt": "^1.0.1",
+    "grunt-browserify": "^5.0.0",
+    "grunt-contrib-connect": "^1.0.2",
+    "grunt-contrib-watch": "^1.0.0",
+    "phaser": "^2.6.2"
+  }
+}
