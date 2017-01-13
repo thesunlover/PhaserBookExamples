@@ -39,7 +39,7 @@ namespace app.states{
 			//add player
 			this.player = new prefabs.Player(this.game, 0, 0, this.bullets, 0.25);
 			this.game.add.existing(this.player);
-			
+
 			//add a few enemeis..
 			this.enemies = this.add.group();
 			for(var i = 0; i < 5; i++) {
@@ -60,7 +60,7 @@ namespace app.states{
 			this.waveTimer.loop(20000, this.incrementWave, this);
 			this.waveTimer.start();
 		}
-	
+
 		protected setupUI() {
 			this.UILayer = this.add.group();
 
@@ -101,7 +101,7 @@ namespace app.states{
 		}
 
 		protected damageEnemy(enemy:prefabs.Enemy, bullet:Phaser.Sprite) {
-			
+
 			this.explosions.x = enemy.x;
 			this.explosions.y = enemy.y;
 

@@ -289,13 +289,14 @@ var app;
         var GameOver = (function (_super) {
             __extends(GameOver, _super);
             function GameOver() {
-                var _this = _super.call(this) || this;
-                _this.asset = null;
-                _this.ready = false;
-                return _this;
+                return _super.call(this) || this;
             }
             GameOver.prototype.create = function () {
                 console.log("GameOver state ready");
+                this.add.sprite(0, 0, 'gameover_bg');
+                var style = { font: "30px Arial", align: "center", fill: "#fff" };
+                this.txtValue = this.add.text(512, 534, this.game.score.toString() + " points", style);
+                this.txtValue.anchor.setTo(.5, .5);
             };
             GameOver.prototype.update = function () {
                 if (this.game.input.keyboard.isDown(Phaser.Keyboard.SPACEBAR)) {
