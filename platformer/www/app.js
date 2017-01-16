@@ -8,7 +8,7 @@ var app;
             this.game.state.add('game', new app.states.Game());
             this.game.state.add('Level1', new app.states.Level1);
             this.game.state.add('Level2', new app.states.Level2);
-            this.game.state.add('gameOver', new app.states.GameOver());
+            this.game.state.add('GameOver', new app.states.GameOver());
             this.game.state.start('boot');
         }
         return App;
@@ -113,11 +113,11 @@ var app;
                 _this.landAnimation = _this.animations.add("land", [7, 6, 5]);
                 _this.animations.add("run", [11, 12, 13, 14, 15, 16, 17]);
                 _this.game.physics.enable(_this, Phaser.Physics.ARCADE);
+                _this.game.physics.arcade.skipQuadTree = false;
                 _this.body.collideWorldBounds = true;
-                _this.body.drag = { x: 0, y: 0 };
-                _this.body.setSize(125, 150);
-                _this.scale.setTo(0.75);
-                _this.anchor.setTo(.5, 1);
+                _this.anchor.setTo(0.6, _this.anchor.y);
+                _this.body.setSize(77, 195);
+                _this.body.offset.setTo(89, 15);
                 _this.cursors = _this.game.input.keyboard.createCursorKeys();
                 _this.jumpButton = _this.game.input.keyboard.addKey(Phaser.Keyboard.SPACEBAR);
                 _this.jumpButton.onDown.add(_this.jump, _this);
@@ -150,7 +150,8 @@ var app;
                 }
                 this.animationState();
                 this.speedToUse = this.inAir ? this.airSpeed : this.speed;
-                if (this.cursors.left.isDown && !this.cursors.right.isDown) {
+                this.speedToUse *= Math.abs(this.scale.x);
+                if (!this.cursors.left.isUp && this.cursors.left.isDown && !this.cursors.right.isDown) {
                     this.scale.x = -1;
                     this.body.velocity.x = -this.speedToUse;
                 }
@@ -204,7 +205,7 @@ var app;
                     this.map.addTilesetImage('Tiles');
                     this.layer = this.map.createLayer('Level');
                     this.layer.resizeWorld();
-                    this.map.setCollisionBetween(6, 25, true, this.layer);
+                    this.map.setCollisionBetween(6, 20, true, this.layer);
                     this.coins = this.add.group();
                     this.coins.physicsBodyType = Phaser.Physics.ARCADE;
                     this.coins.enableBody = true;
@@ -232,6 +233,8 @@ var app;
                     this.physics.arcade.overlap(this.player, this.doors, this.hitDoor, null, this);
                     this.physics.arcade.overlap(this.player, this.coins, this.collectCoin, null, this);
                     this.physics.arcade.collide(this.player, this.enemies, this.hitEnemy, null, this);
+                    this.game.debug.body(this.player, "rgba(0,0,255,0.4)");
+                    this.game.debug.body(this.layer, "green");
                 };
                 Level.prototype.collectCoin = function (playerRef, coinRef) {
                     coinRef.kill();
