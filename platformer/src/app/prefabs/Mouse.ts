@@ -31,11 +31,14 @@ namespace app.prefabs{
 
 			this.game.physics.enable(this, Phaser.Physics.ARCADE);
 			this.body.collideWorldBounds = true;
-			this.body.drag = { x: 600, y: 0 };
-			this.body.setSize(60, 80);
+			// this.body.drag = { x: 600, y: 0 };
+			this.body.setSize(60, 120);
 			this.anchor.setTo(.5, 1);
 
 			this.animations.play("run", 9, true);
+			this.anchor.setTo(0.44, this.anchor.y);
+			this.body.setSize(60, 120);
+			this.body.offset.setTo(39, 35);
 		}
 
 		update() {

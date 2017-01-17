@@ -39,10 +39,12 @@ var app;
                 _this.animations.add("run", [8, 9, 10, 11, 12, 13, 14]);
                 _this.game.physics.enable(_this, Phaser.Physics.ARCADE);
                 _this.body.collideWorldBounds = true;
-                _this.body.drag = { x: 600, y: 0 };
-                _this.body.setSize(60, 80);
+                _this.body.setSize(60, 120);
                 _this.anchor.setTo(.5, 1);
                 _this.animations.play("run", 9, true);
+                _this.anchor.setTo(0.44, _this.anchor.y);
+                _this.body.setSize(60, 120);
+                _this.body.offset.setTo(39, 35);
                 return _this;
             }
             Mouse.prototype.update = function () {
@@ -113,7 +115,6 @@ var app;
                 _this.landAnimation = _this.animations.add("land", [7, 6, 5]);
                 _this.animations.add("run", [11, 12, 13, 14, 15, 16, 17]);
                 _this.game.physics.enable(_this, Phaser.Physics.ARCADE);
-                _this.game.physics.arcade.skipQuadTree = false;
                 _this.body.collideWorldBounds = true;
                 _this.anchor.setTo(0.6, _this.anchor.y);
                 _this.body.setSize(77, 195);
@@ -233,8 +234,16 @@ var app;
                     this.physics.arcade.overlap(this.player, this.doors, this.hitDoor, null, this);
                     this.physics.arcade.overlap(this.player, this.coins, this.collectCoin, null, this);
                     this.physics.arcade.collide(this.player, this.enemies, this.hitEnemy, null, this);
+                    this.addDebug();
+                };
+                Level.prototype.addDebug = function () {
                     this.game.debug.body(this.player, "rgba(0,0,255,0.4)");
-                    this.game.debug.body(this.layer, "green");
+                    this.enemies.forEach(function (child, color) {
+                        this.game.debug.body(child, color);
+                    }, this, true, "rgba(255,0,0,0.4)");
+                    this.doors.forEach(function (child, color) {
+                        this.game.debug.body(child, color);
+                    }, this, true, "rgba(255,100,50,0.4)");
                 };
                 Level.prototype.collectCoin = function (playerRef, coinRef) {
                     coinRef.kill();

@@ -30,10 +30,10 @@ namespace app.prefabs{
 
 			this.game.physics.enable(this, Phaser.Physics.ARCADE);
 			this.body.collideWorldBounds = true;
-			this.body.drag = { x: 0, y: 0 };
-			this.body.setSize(125, 150);
-			this.scale.setTo(0.75);
-			this.anchor.setTo(.5, 1);
+			this.anchor.setTo(0.6, this.anchor.y);
+			this.body.setSize(77, 195);
+			this.body.offset.setTo(89,15);
+
 			this.cursors = this.game.input.keyboard.createCursorKeys();
 			this.jumpButton = this.game.input.keyboard.addKey(Phaser.Keyboard.SPACEBAR);
 			this.jumpButton.onDown.add(this.jump, this);
@@ -58,11 +58,10 @@ namespace app.prefabs{
 				}
 			}
 
-
 		}
 
 		public update() {
-
+			// console.log("position:(%1,%2)".replace("%1",this.x).replace("%2",this.y));
 			this.hitGround = false;
 			var wasAir = this.inAir;
 			this.inAir = !this.body.onFloor();
@@ -74,8 +73,9 @@ namespace app.prefabs{
 			this.animationState();
 
 			this.speedToUse = this.inAir ? this.airSpeed : this.speed;
+			this.speedToUse *= Math.abs(this.scale.x);
 
-			if(this.cursors.left.isDown && !this.cursors.right.isDown) {
+			if(!this.cursors.left.isUp && this.cursors.left.isDown && !this.cursors.right.isDown) {
 				this.scale.x = -1;
 				this.body.velocity.x = -this.speedToUse;
 			}

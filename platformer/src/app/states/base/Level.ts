@@ -41,7 +41,7 @@ namespace app.states.base{
 
 			//collision
 			this.layer.resizeWorld();
-			this.map.setCollisionBetween(6,25,true,this.layer);
+			this.map.setCollisionBetween(6,20,true,this.layer);
 
 			//coin layer
 			this.coins = this.add.group();
@@ -83,6 +83,23 @@ namespace app.states.base{
 			this.physics.arcade.overlap(this.player, this.doors, this.hitDoor, null, this);
 			this.physics.arcade.overlap(this.player, this.coins, this.collectCoin, null, this);
 			this.physics.arcade.collide(this.player, this.enemies, this.hitEnemy, null, this);
+
+			this.addDebug();
+		}
+
+		protected addDebug(){
+			this.game.debug.body(this.player, "rgba(0,0,255,0.4)",);
+			this.enemies.forEach(function(child:Phaser.Sprite, color:string){
+				this.game.debug.body(child, color);
+			}, this, true,"rgba(255,0,0,0.4)");
+			this.doors.forEach(function(child:Phaser.Sprite, color:string){
+				this.game.debug.body(child, color);
+			}, this, true,"rgba(255,100,50,0.4)");
+			// this.layer.forEach(function(child:Phaser.Sprite, color:string){
+			// 	this.game.debug.body(child, color);
+			// }, this, true,"rgba(255,0,0,0.4)");
+			// this.game.debug.body.call(this.game.debug.body,this.enemies.children.map((), "red");
+    		// this.game.debug.body(this.layer, "green");
 		}
 
 		protected collectCoin(playerRef:prefabs.Player, coinRef:Phaser.Sprite) {
