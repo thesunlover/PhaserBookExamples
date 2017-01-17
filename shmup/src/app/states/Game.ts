@@ -1,8 +1,12 @@
+namespace Phaser {
+	export interface Game{
+		score:number;
+	}
+}
 namespace app.states{
 	export class Game extends Phaser.State {
 		protected bg: Phaser.TileSprite;
 		protected scoreField: prefabs.NumberBox;
-		protected score: number;
 
         protected player:prefabs.Player;
 		protected healthBar: prefabs.HealthBar;
@@ -27,7 +31,7 @@ namespace app.states{
 			console.log("game state ready");
 
 			this.spawnChance = .02;
-			this.score = 0;
+			this.game.score = 0;
 
 			this.game.physics.startSystem(Phaser.Physics.ARCADE);
 
@@ -110,8 +114,8 @@ namespace app.states{
 			enemy.kill();
 			bullet.kill();
 
-			this.score++;
-			this.scoreField.setValue(this.score);
+			this.game.score++;
+			this.scoreField.setValue(this.game.score);
 		}
     }
 }
