@@ -9,7 +9,7 @@ namespace app.states {
 
         public create() {
     		console.log("GameOver state ready");
-			this.add.sprite( 0,0,'gameover_bg');
+			this.add.sprite( 0,0,'bg');
 
 			var style:Phaser.PhaserTextStyle = { font: "30px Arial", align: "center", fill: "#fff" };
 			this.txtValue = this.add.text(512, 534, this.game.score.toString() + " points", style);
